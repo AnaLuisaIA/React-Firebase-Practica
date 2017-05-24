@@ -75,10 +75,11 @@ class App extends Component {
     return (
       <div className="row">
           <h6 className="white-text"
-            style={{fontFamily: 'Baloo', paddingTop : "30px"}}
+            style={{fontFamily: 'Cabin Condensed', paddingTop : "30px"}}
           >
-            Sube tus imagenes
+            Sube tus imágenes
           </h6>
+          <br />
           <FileUpload user={this.state.user} />
           <DocumentsList user = {this.state.user} />
       </div>
@@ -88,9 +89,9 @@ class App extends Component {
   userOff(){ //Función que se ejecuta sino existe el usuario
     return (
       <h5 className="white-text"   //Etiqueta contenedora
-        style={{fontFamily: 'Baloo', paddingTop : "30px"}}
+        style={{fontFamily: 'Cabin Condensed', paddingTop : "30px"}}
       >
-        Necesitas loguearte
+        Necesitas ingresar
       </h5>
       )
   }
@@ -109,8 +110,9 @@ class Login extends Component {
     return(
       <div style ={{fontFamily: ''}}>
         <img width={80} height={80} src={logo} alt=""/>
-        <h3 className="white-text">Bienvenido</h3>
-        <button className="waves-effect waves-light btn red"
+        <h3 className="white-text"
+        style={{fontFamily: 'Righteous'}} >Bienvenido</h3>
+        <button className="waves-effect waves-light btn blue lighten-1"
           onClick={this.props.handleAuth}>Login</button>
       </div>
     )
@@ -118,12 +120,12 @@ class Login extends Component {
 
   renderUserData(){
     return(
-      <div className= "white-text" style={{fontFamily: ''}}>
+      <div className= "white-text" style={{fontFamily: 'Cabin Condensed'}}>
         <img className="circle" width={80} height={80} src={this.props.user.photoURL}
           alt="" />
         <h4>{this.props.user.displayName}</h4>
         <h6>{this.props.user.email}</h6>
-        <button className="waves-effect waves-light btn red"
+        <button className="waves-effect waves-light btn blue lighten-1"
           onClick={this.props.handleLogout}>Salir</button>
       </div>
     )
@@ -150,8 +152,10 @@ class FileUpload extends Component {
             </div>
           </div>
         </div>
-        <h6 className="white-text" style={{fontFamily: ''}}>
-          {this.state.unploadValue} % {this.state.message}</h6>
+        <h6 className="white-text" style={{fontFamily: 'Cabin Condensed'}}>
+          {this.state.unploadValue} %
+          <br />
+          {this.state.message}</h6>
       </div>
     )
   }
@@ -170,7 +174,8 @@ class FileUpload extends Component {
     }, () => {
       firebase.database().ref('Documentos/'+this.props.user.displayName).push({
         titulo: file.name,
-        downloadURL: task.snapshot.downloadURL
+        downloadURL: task.snapshot.downloadURL,
+        contentType: task.snapshot.contentType
       })
     this.setState({
       message: "Archivo subido"
@@ -202,7 +207,7 @@ class DocumentsList extends Component {
 
   render(){
     return(
-      <div className="col l4 m4 s10 offset-l4 offset-m4 offset-s1">
+      <div className="col l12 m12 s12">
         <ul className="collection">
         {
           this.state.documents.map((doc) => (
@@ -221,6 +226,7 @@ class DocumentItem extends Component {
       <li className = "collection-item avatar">
         <img src={this.props.doc.downloadURL} className="circle" alt="" />
         <span className="title">{this.props.doc.titulo}</span>
+        <p>{this.props.doc.contentType}</p>
       </li>
     )
   }
