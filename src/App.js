@@ -80,8 +80,8 @@ class App extends Component {
             Sube tus imágenes
           </h6>
           <br />
-          <FileUpload user={this.state.user} />
-          <DocumentsList user = {this.state.user} />
+          <FileUpload user={this.state.user}/>
+          <DocumentsList user = {this.state.user}/>
       </div>
       )
   }
@@ -144,10 +144,19 @@ class FileUpload extends Component {
   render(){
     return(
       <div>
-        <input type="file" onChange={this.handleOnChange.bind(this)} />
+        <div className="file-field input-field col l8 offset-l2 ">
+          <div className="btn amber accent-4">
+            <span>Archivo</span>
+            <input type="file" onChange={this.handleOnChange.bind(this)} />
+          </div>
+          <div className="file-path-wrapper">
+            <input className="file-path validate" type="text"/>
+          </div>
+        </div>
+
         <div className="row">
-          <div className="progress col l4 offset-l4 m4 offset-m4 s8 offset-s2" >
-            <div className="determinate"
+          <div className="progress purple col l4 offset-l4 m4 offset-m4 s8 offset-s2" >
+            <div className="determinate blue"
               style={{width : this.state.unploadValue + "%"}}>
             </div>
           </div>
@@ -206,8 +215,8 @@ class DocumentsList extends Component {
 
   render(){
     return(
-      <div className="col l12 m12 s12">
-        <ul className="collection">
+      <div className="col l12 m12 s12 z-depth-1 pink">
+        <ul className="collection z-depth-5">
         {
           this.state.documents.map((doc) => (
             <DocumentItem key={doc.downloadURL} doc={doc} />
@@ -222,9 +231,9 @@ class DocumentsList extends Component {
 class DocumentItem extends Component {
   render() {
     return(
-      <li className = "collection-item avatar">
+      <li className = "collection-item avatar red lighten-4 z-depth-2">
         <img src={this.props.doc.downloadURL} className="circle" alt="" />
-        <span className="title">{this.props.doc.titulo}</span>
+        <span className="title pink-text text-darken-3" style={{fontFamily: 'Cabin Condensed'}}>{this.props.doc.titulo}</span>
       </li>
     )
   }
