@@ -174,8 +174,7 @@ class FileUpload extends Component {
     }, () => {
       firebase.database().ref('Documentos/'+this.props.user.displayName).push({
         titulo: file.name,
-        downloadURL: task.snapshot.downloadURL,
-        contentType: task.snapshot.contentType
+        downloadURL: task.snapshot.downloadURL
       })
     this.setState({
       message: "Archivo subido"
@@ -226,7 +225,6 @@ class DocumentItem extends Component {
       <li className = "collection-item avatar">
         <img src={this.props.doc.downloadURL} className="circle" alt="" />
         <span className="title">{this.props.doc.titulo}</span>
-        <p>{this.props.doc.contentType}</p>
       </li>
     )
   }
